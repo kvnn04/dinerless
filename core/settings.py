@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
+from datetime import timedelta
 from pathlib import Path
 from dotenv import load_dotenv
 from os import getenv, path
@@ -60,14 +61,48 @@ INSTALLED_APPS = [
 # AUTH_USER_MODEL = 'users.CustomUser'
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware'
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+}
+
+CORS_ALLOWED_ORIGINS = getenv("CORS_ALLOWED_ORIGINS", "").split(",")
+
+# También es buena práctica permitir estos métodos para una API financiera
+CORS_ALLOW_METHODS = [
+    "DELETE",
+    "GET",
+    "PATCH",
+    "POST",
+    "PUT",
+    "OPTIONS", # Para que el navegador no bloquee el CORS
+]
+
+# Configuración de SimpleJWT
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60), # Tiempo de sesión activa
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),    # Tiempo para renovar sesión
+    
+    # ¡AQUÍ USAMOS EL .env!
+    'SIGNING_KEY': getenv('JWT_SECRET_KEY', SECRET_KEY), 
+    
+    'AUTH_HEADER_TYPES': ('Bearer',),
+    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
+}
 
 ROOT_URLCONF = 'core.urls'
 
@@ -102,11 +137,11 @@ WSGI_APPLICATION = 'core.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': getenv('DB_NAME'),        # Lee 'dinerless' del .env
-        'USER': getenv('DB_USER'),        # Lee 'postgres' del .env
-        'PASSWORD': getenv('DB_PASSWORD'),# Lee tu clave del .env
-        'HOST': getenv('DB_HOST'),        # Lee '127.0.0.1' del .env
-        'PORT': getenv('DB_PORT'),        # Lee '5432' del .env
+        'NAME': getenv('DB_NAME'),        
+        'USER': getenv('DB_USER'),        
+        'PASSWORD': getenv('DB_PASSWORD'),
+        'HOST': getenv('DB_HOST'),        
+        'PORT': getenv('DB_PORT'),        
     }
 }
 
