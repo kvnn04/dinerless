@@ -23,10 +23,10 @@ sys.path.insert(0, path.join(BASE_DIR, 'apps'))
 load_dotenv()
 
 
-# Ahora usamos os.getenv para leer las variables
+# Ahora usamos getenv para leer las variables
 SECRET_KEY = getenv('SECRET_KEY')
 
-# Ojo aquí: os.getenv siempre devuelve un String. 
+# Ojo aquí: getenv siempre devuelve un String. 
 # Para DEBUG necesitamos un Booleano, así que lo comparamos:
 DEBUG = getenv('DEBUG') == 'True'
 # Quick-start development settings - unsuitable for production
@@ -36,6 +36,7 @@ DEBUG = getenv('DEBUG') == 'True'
 # ALLOWED_HOSTS = []
 
 ALLOWED_HOSTS = getenv('ALLOWED_HOSTS', '').split(',')
+
 
 # Application definition
 
@@ -91,13 +92,23 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': getenv('DB_NAME'),        # Lee 'dinerless' del .env
+        'USER': getenv('DB_USER'),        # Lee 'postgres' del .env
+        'PASSWORD': getenv('DB_PASSWORD'),# Lee tu clave del .env
+        'HOST': getenv('DB_HOST'),        # Lee '127.0.0.1' del .env
+        'PORT': getenv('DB_PORT'),        # Lee '5432' del .env
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators

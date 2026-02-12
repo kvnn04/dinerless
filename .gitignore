@@ -1,4 +1,4 @@
-# Python
+# --- Python ---
 __pycache__/
 *.py[cod]
 *$py.class
@@ -10,22 +10,37 @@ ENV/
 env.bak/
 venv.bak/
 
-# Django
+# --- Django ---
 db.sqlite3
 db.sqlite3-journal
 local_settings.py
 staticfiles/
 media/
+# Archivos de log (muy útiles para debug pero no van en Git)
+*.log
 
-# Variables de entorno (¡CRÍTICO! Nunca subas esto)
+# --- PostgreSQL ---
+# Si alguna vez haces un dump de tu base de datos (respaldo)
+*.sql
+*.psql
+
+# --- Variables de entorno (¡CRÍTICO! Nunca subas esto) ---
 .env
+.env.local
+.env.dev
+.env.prod
 
-# VS Code / IDEs
+# --- Herramientas de Desarrollo ---
 .vscode/
 .idea/
 *.swp
 *.swo
+.history/
+# Si usas herramientas de testing o coverage
+.coverage
+htmlcov/
+.pytest_cache/
 
-# OS
+# --- OS ---
 .DS_Store
 Thumbs.db
