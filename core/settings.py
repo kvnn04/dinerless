@@ -48,13 +48,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # Libros de terceros
+    
+    # Librerías de terceros
     'rest_framework',
     'corsheaders',
     
-    # Tus Apps (Asegúrate de que el nombre coincida con el campo 'name' en apps.py)
-    'users',
-    'finance',
+    # Tus Apps (Solo una referencia por cada app)
+    'apps.finance.apps.FinanceConfig',
+    'apps.users.apps.UsersConfig',  # Cámbialo así para ser consistente
 ]
 
 # # CRÍTICO: Antes de migrar, dile a Django que use tu CustomUser
@@ -144,6 +145,8 @@ DATABASES = {
         'PORT': getenv('DB_PORT'),        
     }
 }
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators

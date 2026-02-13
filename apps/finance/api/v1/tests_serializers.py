@@ -3,7 +3,7 @@ from apps.finance.models import Category, Transaction, Budget
 from rest_framework.validators import UniqueTogetherValidator
 from django.utils import timezone
 
-class CategorySerializer(serializers.ModelSerializer):
+class CategorySerializerTest(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = ['id', 'name', 'icon', 'is_default', 'created_at', 'user']
@@ -33,7 +33,7 @@ class CategorySerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("El icono no puede estar vacío.")
         return value
 
-class TransactionSerializer(serializers.ModelSerializer):
+class TransactionSerializerTest(serializers.ModelSerializer):
     category_name = serializers.ReadOnlyField(source='category.name')
     
     class Meta:
@@ -55,7 +55,7 @@ class TransactionSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("La fecha no puede ser mayor a un año en el futuro.")
         return value
 
-class BudgetSerializer(serializers.ModelSerializer):
+class BudgetSerializerTest(serializers.ModelSerializer):
     category_name = serializers.ReadOnlyField(source='category.name')
     
     class Meta:

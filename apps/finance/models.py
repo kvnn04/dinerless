@@ -31,7 +31,7 @@ class Transaction(BaseModel):
     amount = models.DecimalField(max_digits=12, decimal_places=2)
     type = models.CharField(max_length=10, choices=TRANSACTION_TYPES)
     description = models.CharField(max_length=255, blank=True)
-    date = models.DateField()
+    date = models.DateTimeField(auto_now_add=True) # <--- Agrega esto
 
     class Meta:
         indexes = [
