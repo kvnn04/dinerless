@@ -4,7 +4,7 @@ from .views.categorias_view import CategoryViewSet
 from .views.budget_view import BudgetViewSet
 from .views.transacciones_view import TransactionViewSet
 # from .views import CategoryViewSet, TransactionViewSet, BudgetViewSet
-from .views.budget_view import MonthlySummaryView
+from .views.monthly_view import MonthlySummaryView
 
 router = DefaultRouter()
 
