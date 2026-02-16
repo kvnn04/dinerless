@@ -13,6 +13,7 @@ class TransactionViewSet(viewsets.ModelViewSet):
     - PATCH/PUT /id/: Actualiza una transacción (validando categoría).
     - DELETE /id/: Elimina una transacción (si es propia).
     """
+    queryset = Transaction.objects.all()
     serializer_class = TransactionSerializer
     authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated]

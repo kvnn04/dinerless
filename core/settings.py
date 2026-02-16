@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     # Tus Apps (Solo una referencia por cada app)
     'apps.finance.apps.FinanceConfig',
     'apps.users.apps.UsersConfig',  # Cámbialo así para ser consistente
+    'drf_spectacular',
 ]
 
 # # CRÍTICO: Antes de migrar, dile a Django que use tu CustomUser
@@ -79,6 +80,17 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
     ],
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+# Configuración de la información de tu API
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Finance API',
+    'DESCRIPTION': 'API para control de gastos, ingresos y presupuestos',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+    # Esto es importante para que Swagger muestre el botón de "Authorize" con JWT
+    'COMPONENT_SPLIT_PATCH': True,
 }
 
 CORS_ALLOWED_ORIGINS = getenv("CORS_ALLOWED_ORIGINS", "").split(",")

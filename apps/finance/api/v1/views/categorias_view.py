@@ -6,6 +6,7 @@ from ..serializers.category_serializer import CategorySerializerConJWT
 
 
 class CategoryViewSet(viewsets.ModelViewSet):
+    queryset = Category.objects.all()
     serializer_class = CategorySerializerConJWT
     permission_classes = [permissions.IsAuthenticated]
 
