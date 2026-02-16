@@ -18,7 +18,6 @@ class BudgetSerializer(serializers.ModelSerializer):
             self.fields['year'].read_only = True
 
     def validate(self, data):
-        # Validación de fecha pasada (Solo para nuevos registros)
         if not self.instance:
             month = data.get('month')
             year = data.get('year')
