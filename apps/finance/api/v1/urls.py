@@ -1,6 +1,10 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import CategoryViewSet, TransactionViewSet, BudgetViewSet
+from .views.categorias_view import CategoryViewSet
+from .views.budget_view import BudgetViewSet
+from .views.transacciones_view import TransactionViewSet
+# from .views import CategoryViewSet, TransactionViewSet, BudgetViewSet
+
 
 router = DefaultRouter()
 
