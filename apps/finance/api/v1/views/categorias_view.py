@@ -3,8 +3,10 @@ from rest_framework.exceptions import PermissionDenied
 from apps.finance.models import Category
 from django.db.models import Q
 from ..serializers.category_serializer import CategorySerializerConJWT
+from drf_spectacular.utils import extend_schema
 
 
+@extend_schema(tags=['Categorias'])
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializerConJWT
@@ -18,7 +20,6 @@ class CategoryViewSet(viewsets.ModelViewSet):
         ).order_by('is_default', 'name')        
 
     def perform_create(self, serializer):
-        # 1. Obtenemos el usuario de la petición
         user = self.request.user
         is_default_sent = self.request.data.get('is_default', False) # type: ignore
 
